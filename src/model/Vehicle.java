@@ -4,24 +4,23 @@ import java.util.Calendar;
 public abstract class Vehicle{
     private String id;
     private double basePrice;
-    private double salePrice;
     private String brand;
     private String model;
     private int year;
     private double cylinderCapacity;
     private double mileage;
-    private boolean isNew;
+    private int isNew;
     private String licensePlate;
     private SOAT soat;
     private TechnicalMechanical certificate;
     private PropertyCard propertyCard;
 
-    public Vehicle(String id,double basePrice, String brand, String model, int year, double cylinderCapacity, double mileage, boolean isNew, String licensePlate,SOAT soat,TechnicalMechanical certificate,PropertyCard propertyCard) {
+    public Vehicle(String id,double basePrice, String brand, String model, int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,SOAT soat,TechnicalMechanical certificate,PropertyCard propertyCard) {
         this.basePrice = basePrice;
-        this.salePrice = calcSellingPrice();
         this.brand = brand;
         this.model = model;
         this.year=year;
+        this.id=id;
         this.cylinderCapacity = cylinderCapacity;
         this.mileage = mileage;
         this.isNew = isNew;
@@ -30,16 +29,26 @@ public abstract class Vehicle{
         this.certificate=certificate;
         this.propertyCard=propertyCard;
     }
-    public abstract double calcSellingPrice();
+    public double calcSellingPrice(){
+        return 0;
+    }
 
     @Override
     public String toString(){
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        if (isNew==false){
-       return "\nVEHICLE'S INFO\n"+"Vehicle id:"+id+"\nBase price: "+String.format("%.2f",basePrice)+"\nSale price: "+String.format("%.2f",salePrice)+"\nBrand: "+brand+"\nModel:"+model+"\nCylinder capacity: "+cylinderCapacity+"\nMiliage: "+mileage+"\nIs the car new? "+isNew+"\nLisence plate "+licensePlate+"\nINFO DOCUMENTS"+soat.toString()+certificate.toString()+propertyCard.toString()+"The car has a selling price of: "+salePrice;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        if (isNew==0){
+       return "\nVEHICLE'S INFO\n\n"+"Vehicle id:"+id+"\nBase price: "+String.format("%.2f",basePrice)+"\nBrand: "+brand+"\nYear:"+year+"\nModel:"+model+"\nCylinder capacity: "+cylinderCapacity+"\nMiliage: "+mileage+"\nIs the car new? False"+"\nLicence plate "+licensePlate+"\nINFO DOCUMENTS"+soat.toString()+certificate.toString()+propertyCard.toString();
         } else{
-        return "\nVEHICLE'S INFO\n"+"Vehicle id:"+id+"\nBase price: "+String.format("%.2f",basePrice)+"\nSale price: "+String.format("%.2f",salePrice)+"\nBrand: "+brand+"\nModel:"+model+"\nCylinder capacity: "+cylinderCapacity+"\nMiliage: "+mileage+"\nIs the car new? "+isNew+"\nINFO DOCUMENTS\nAs it is new, it does not have a SOAT or a property card\ntThe price of obtaining these documents will be reflected in the cost of selling the vehicle\nAnd its technical-mechanical inspection certificate is from the current year: "+year;
+        return "\nVEHICLE'S INFO\n\n"+"Vehicle id:"+id+"\nBase price: "+String.format("%.2f",basePrice)+"\nBrand: "+brand+"\nYear:"+year+"\nModel:"+model+"\nCylinder capacity: "+cylinderCapacity+"\nMiliage: "+mileage+"\nIs the car new? True"+"\nINFO DOCUMENTS\nAs it is new, it does not have a SOAT nor a property card\ntThe price of obtaining these documents will be reflected in the cost of selling the vehicle\nAnd its technical-mechanical inspection certificate is from the current year: "+currentYear+"\nLicence plate: none";
         }
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getYear() {
@@ -82,14 +91,6 @@ public abstract class Vehicle{
         this.basePrice = basePrice;
     }                                                                                                                                          
 
-    public double getSalePrice() {
-        return this.salePrice;
-    }
-
-    public void setSalePrice(double salePrice) {
-        this.salePrice = salePrice;
-    }
-
     public String getBrand() {
         return this.brand;
     }
@@ -122,11 +123,11 @@ public abstract class Vehicle{
         this.mileage = mileage;
     }
 
-    public boolean getIsNew() {
+    public int getIsNew() {
         return isNew;
     }
 
-    public void setIsNew(boolean isNew) {
+    public void setIsNew(int isNew) {
         this.isNew = isNew;
     }
 

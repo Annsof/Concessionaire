@@ -12,7 +12,6 @@ public class Main{
         conc = new Concessionaire(testcases.CasesVehicles());
         sc = new Scanner(System.in);
     }
-
     public static void main(String[]arg){
         System.out.println("Welcome to The Vehicle's Dealership");
         Main ppl= new Main();
@@ -40,16 +39,20 @@ public class Main{
             case 1:
             registerVehicle();
                 break;
-            case 2: 
+            case 2:
+            generateAVehiclesPrice();
                 break;
             case 3: 
             generateReport();
                 break;
             case 4: 
+            documentsOfVehicle();
                 break;
             case 5: 
+            System.out.println(conc.showParkingLot());
                 break;
             case 6: 
+            GenerateParkingReports();
                 break;
             case 0:
             System.out.println("Bye!");
@@ -57,6 +60,16 @@ public class Main{
         }
 
 
+    }
+    public void documentsOfVehicle(){
+        System.out.println("Enter the id of the vehicle to generate its documents");
+        String id=sc.nextLine();
+        System.out.println(conc.lookUpVehiculesDocuments(id)+"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    }
+    public void generateAVehiclesPrice(){
+        System.out.println("Enter the id of the vehicle to generate its sale price");
+        String id=sc.nextLine();
+        System.out.println(conc.lookUpVehiculesSalePrice(id)+"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
     public void registerVehicle(){
         double gasCapacity=0,bateryLife=0,soatPrice=0,coverPrice=0,gasLevels=0,certificatePrice=0,propetyCardPrice=0,mileage=0;
@@ -87,11 +100,20 @@ public class Main{
         double cylinderCapacity=sc.nextDouble();
         sc.nextLine();
 
-        System.out.println("Is the vehicle new? (true/false)");
-        boolean isNew=sc.nextBoolean();
+        System.out.println("What is the state of the vehicle\n"+
+                            "(0)Used"+
+                            "(1)New");
+        int isNew=sc.nextInt();
         sc.nextLine();
-
-        if (isNew==false){
+        while (isNew<0 || isNew>1){
+            System.out.println("Enter a valid answer");
+            System.out.println("What is the state of the vehicle\n"+
+                            "(0)Used"+
+                            "(1)New");
+        isNew=sc.nextInt();
+        sc.nextLine();
+        }
+        if (isNew==0){
             System.out.println("What is the mileage of the vehicle");
             mileage=sc.nextDouble();
             sc.nextLine();  
@@ -139,6 +161,16 @@ public class Main{
                             "(4)A gas car\n");
         int option1 = sc.nextInt();
         sc.nextLine();
+        while (option1<1 || option1>4){
+            System.out.println("Enter a valid answer");
+            System.out.println("What type of vehicle will you register?\n"+
+                            "(1)A motorCycle\n"+
+                            "(2)A hybrid car\n"+
+                            "(3)An electric car\n"+
+                            "(4)A gas car\n");
+            option1 = sc.nextInt();
+            sc.nextLine();
+        }
         if(option1==2 ||option1==3 ||option1==4){
             System.out.println("What is the number of car doors");
             numDoors=sc.nextInt();
@@ -147,8 +179,16 @@ public class Main{
             System.out.println("What type of car is the vehicle?\n"+
                             "(1)Sedan\n"+
                             "(2)Pick up truck\n");
-        typeOfCar = sc.nextInt();
-        sc.nextLine();
+            typeOfCar = sc.nextInt();
+            sc.nextLine();
+        while (typeOfCar<1 || typeOfCar>2){
+            System.out.println("Enter a valid answer");
+            System.out.println("What type of car is the vehicle?\n"+
+                            "(1)Sedan\n"+
+                            "(2)Pick up truck\n");
+            typeOfCar = sc.nextInt();
+            sc.nextLine();
+        }
         }  
         switch(option1){
             case 1:
@@ -161,6 +201,16 @@ public class Main{
                                 "(4)Cross\n");
             int typeOfMotorCycle=sc.nextInt();
             sc.nextLine();
+            while (typeOfMotorCycle<1 || typeOfMotorCycle>4){
+                System.out.println("Enter a valid answer");
+                System.out.println("What is the type of motorcycle\n"+
+                                "(1)Standard\n"+
+                                "(2)Sport\n"+
+                                "(3)Scooter\n"+
+                                "(4)Cross\n");
+                typeOfMotorCycle=sc.nextInt();
+                sc.nextLine();
+            }
             returned=conc.registerVehicle(id, basePrice,  brand,  model, year,  cylinderCapacity,  mileage,  isNew,  licensePlate, coverPrice, soatYear, soatPrice,  gasLevels,  certificateYear,  certificatePrice,  propetyCardYear,  propetyCardPrice, gasCapacity,  typeOfMotorCycle);
             if (returned){
             System.out.println("You have registered successfully");
@@ -178,12 +228,29 @@ public class Main{
                                 "(2)Normal\n");
             typeOfCharger=sc.nextInt();
             sc.nextLine();
+            while (typeOfCharger<1 || typeOfCharger>2){
+                System.out.println("Enter a valid answer");
+                System.out.println("What type of batery does the hybrid car has?\n"+
+                "(1)Fast\n"+
+                "(2)Normal\n");
+                typeOfCharger=sc.nextInt();
+                sc.nextLine();
+            }
             System.out.println("What type of gasoline does the hybrid car has?\n"+
                                 "(1)Extra\n"+
                                 "(2)Current\n"+
                                 "(3)Diesel\n");
             typeOfGas=sc.nextInt();
             sc.nextLine();
+            while (typeOfGas<1 || typeOfGas>3){
+                System.out.println("Enter a valid answer");
+                System.out.println("What type of gasoline does the hybrid car has?\n"+
+                                "(1)Extra\n"+
+                                "(2)Current\n"+
+                                "(3)Diesel\n");
+                typeOfGas=sc.nextInt();
+                sc.nextLine();
+            }
             returned=conc.registerVehicle(id, basePrice,  brand,  model, year,  cylinderCapacity,  mileage,  isNew,  licensePlate, coverPrice, soatYear, soatPrice,  gasLevels,  certificateYear,  certificatePrice,  propetyCardYear,  propetyCardPrice, typeOfCar, numDoors,  isPolarized, gasCapacity, bateryLife, typeOfGas,  typeOfCharger);
             if (returned){
             System.out.println("You have registered successfully");
@@ -199,6 +266,14 @@ public class Main{
                                 "(2)Normal\n");
             typeOfCharger=sc.nextInt();
             sc.nextLine();
+            while (typeOfCharger<1 || typeOfCharger>2){
+                System.out.println("Enter a valid answer");
+                System.out.println("What type of batery does the hybrid car has?\n"+
+                "(1)Fast\n"+
+                "(2)Normal\n");
+                typeOfCharger=sc.nextInt();
+                sc.nextLine();
+            }
             returned=conc.registerVehicle(id, basePrice,  brand,  model, year,  cylinderCapacity,  mileage,  isNew,  licensePlate, coverPrice, soatYear, soatPrice,  gasLevels,  certificateYear,  certificatePrice,  propetyCardYear,  propetyCardPrice, typeOfCar, numDoors,  isPolarized,  typeOfCharger, bateryLife);
             if (returned){
             System.out.println("You have registered successfully");
@@ -215,6 +290,15 @@ public class Main{
                                 "(3)Diesel\n");
             typeOfGas=sc.nextInt();
             sc.nextLine();
+            while (typeOfGas<1 || typeOfGas>3){
+                System.out.println("Enter a valid answer");
+                System.out.println("What type of gasoline does the hybrid car has?\n"+
+                                "(1)Extra\n"+
+                                "(2)Current\n"+
+                                "(3)Diesel\n");
+                typeOfGas=sc.nextInt();
+                sc.nextLine();
+            }
             returned=conc.registerVehicle(id,basePrice,brand, model, year, cylinderCapacity,  mileage,  isNew,  licensePlate, coverPrice, soatYear, soatPrice,  gasLevels,  certificateYear,  certificatePrice,  propetyCardYear,  propetyCardPrice,typeOfCar, numDoors, isPolarized,gasCapacity,typeOfGas);
             if (returned){
             System.out.println("You have registered successfully");
@@ -226,16 +310,24 @@ public class Main{
 
     }
     public void generateReport(){
-        System.out.println(conc.generateReportVehicles());
-        /**
         int option2=0, option3=0;
         System.out.println("Generate report according to the following criteria\n"+
                             "(1)Vehicle type\n"+
                             "(2)Fuel type\n"+
-                            "(3)New or used"+
-                            "(4)Show all vehicles");
+                            "(3)New or used\n"+
+                            "(4)Show all vehicles\n");
         int option=sc.nextInt();
         sc.nextLine();
+        while (option<1 || option>4){
+            System.out.println("Enter a valid answer");
+            System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Vehicle type\n"+
+                            "(2)Fuel type\n"+
+                            "(3)New or used\n"+
+                            "(4)Show all vehicles\n");
+            option=sc.nextInt();
+            sc.nextLine();
+        }
         switch(option){
             case 1:
             System.out.println("Generate report according to the following criteria\n"+
@@ -243,25 +335,202 @@ public class Main{
                             "(2)MotorCycle\n"); 
             option2=sc.nextInt();
             sc.nextLine();
+            while (option2<1 || option2>2){
+                System.out.println("Enter a valid answer");
+                System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Car\n"+
+                            "(2)MotorCycle\n"); 
+                option2=sc.nextInt();
+                sc.nextLine();
+            }
 
             switch(option2){
                 case 1:
-
+                    System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Gasoline car\n"+
+                            "(2)Electric Car\n"+
+                            "(3)Hybrid car\n"+
+                            "(4)All Cars\n"); 
+                     option3=sc.nextInt();
+                    sc.nextLine();
+                    while (option3<1 || option3>2){
+                        System.out.println("Enter a valid answer");
+                        System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Gasoline car\n"+
+                            "(2)Electric Car\n"+
+                            "(3)Hybrid car\n"+
+                            "(4)All Cars\n"); 
+                        option3=sc.nextInt();
+                        sc.nextLine();
+                    }
+                switch(option3){
+                    case 1:
+                        System.out.println("========================================================\nGASOLINE CARS\n"+conc.generateReportGasCar()+"\n");
+                    break;
+                    case 2:
+                        System.out.println("========================================================\nELECTRIC CARS\n"+conc.generateReportElectricCars()+"\n");
+                    break;
+                    case 3:
+                        System.out.println("========================================================\nHYBRID CARS\n"+conc.generateReportHybridCar()+"\n");
+                    break;
+                    case 4: 
+                        System.out.println("========================================================\nGASOLINE CARS\n"+conc.generateReportGasCar()+"\n========================================================\nELECTRIC CARS\n"+conc.generateReportElectricCars()+"\n========================================================\nHYBRID CARS\n"+conc.generateReportHybridCar()+"\n");
+                    break;
+                }
+            
                 break;
                 case 2:
+                System.out.println("========================================================\nMOTORCYCLEs\n"+conc.generateReportMotorCycle()+"\n");
                 break;
             }
 
             break;
             case 2:
+            System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Extra\n"+
+                            "(2)Current\n"+
+                            "(3)Diesel\n"+
+                            "(4)Show all types of fuel"); 
+            option2=sc.nextInt();
+            sc.nextLine();
+            while (option2<1 || option2>2){
+                System.out.println("Enter a valid answer");
+                System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Extra\n"+
+                            "(2)Current\n"+
+                            "(3)Diesel\n"+
+                            "(4)Show all types of fuel"); 
+                option2=sc.nextInt();
+                sc.nextLine();
+            }
+            
+                switch(option2){
+                    case 1:
+                        System.out.println("========================================================\nEXTRA FUEL\n"+conc.generateReportExtraGas()+"\n");
+                    break;
+                    case 2:
+                        System.out.println("========================================================\nCURRENT FUEL\n"+conc.generateReportCurrentGas()+"\n");
+                    break;
+                    case 3:
+                        System.out.println("========================================================\nDIESEL FUEL\n"+conc.generateReportDieselGas()+"\n");
+                    break;
+                    case 4: 
+                        System.out.println("========================================================\nEXTRA FUEL\n"+conc.generateReportExtraGas()+"\n========================================================\nCURRENT FUEL\n"+conc.generateReportCurrentGas()+"\n========================================================\nDIESEL FUEL\n"+conc.generateReportDieselGas()+"\n");
+                    break;
+                }
             break;
             case 3:
+            System.out.println("Generate report according to the following criteria\n"+
+                            "(1)New\n"+
+                            "(2)Used\n"); 
+            option2=sc.nextInt();
+            sc.nextLine();
+            while (option2<1 || option2>2){
+                System.out.println("Enter a valid answer");
+                System.out.println("Generate report according to the following criteria\n"+
+                            "(1)New\n"+
+                            "(2)Used\n"); 
+                option2=sc.nextInt();
+                sc.nextLine();
+            }
+            
+                switch(option2){
+                    case 1:
+                        System.out.println("========================================================\nNEW CARS\n"+conc.generateReportNew()+"\n");
+                    break;
+                    case 2:
+                        System.out.println("========================================================\nUSED CARS\n"+conc.generateReportUSed()+"\n");
+                    break;
+                }
             break;
             case 4:
             System.out.println(conc.generateReportVehicles());
             break;
 
         }
-        */
+        
+    }
+    public void GenerateParkingReports(){
+        int option2=0;
+        System.out.println("Generate report according to the following criteria\n"+
+                            "(1)Vehicle models per year in the parking lot\n"+
+                            "(2)Data from oldest and newest vehicle\n"+
+                            "(3)Parking lot occupancy rate\n"+
+                            "(4)Information of a vehicle given a position in the parking lot\n");
+        int option=sc.nextInt();
+        sc.nextLine();
+        while (option<1 || option>4){
+            System.out.println("Enter a valid answer");
+            System.out.println("Generate report according to the following criteria\n"+
+                                "(1)Vehicle models per year in the parking lot\n"+
+                                "(2)Data from oldest and newest vehicle\n"+
+                                "(3)Parking lot occupancy rate\n"+
+                                "(4)Information of a vehicle given a position in the parking lot\n");
+            option=sc.nextInt();
+            sc.nextLine();
+        }
+        switch(option){
+            case 1:
+            System.out.println("Generate report according to the following criteria\n"+
+                                "(1)Model 2014 Vehicles\n"+
+                                "(2)Model 2013 Vehicles\n"+
+                                "(3)Model 2012 Vehicles\n"+
+                                "(4)Model 2011 Vehicles\n"+
+                                "(5)Model 2010 and below Vehicles\n");
+            option2=sc.nextInt();
+            sc.nextLine();
+            while (option2<1 || option2>5){
+                System.out.println("Enter a valid answer");
+                System.out.println("Generate report according to the following criteria\n"+
+                                "(1)Model 2014 Vehicles\n"+
+                                "(2)Model 2013 Vehicles\n"+
+                                "(3)Model 2012 Vehicles\n"+
+                                "(4)Model 2011 Vehicles\n"+
+                                "(5)Model 2010 and below Vehicles\n");
+                option2=sc.nextInt();
+                sc.nextLine();
+            }
+
+            switch(option2){
+                case 1:
+                    System.out.println("========================================================\nALL 2014 VEHICLES\n"+conc.generateReportParkingLotyears(2014));
+                break;
+                case 2:
+                System.out.println("========================================================\nALL 2014 VEHICLES\n"+conc.generateReportParkingLotyears(2013));
+                break;
+                case 3:
+                System.out.println("========================================================\nALL 2014 VEHICLES\n"+conc.generateReportParkingLotyears(2012));
+                break;
+                case 4:
+                System.out.println("========================================================\nALL 2014 VEHICLES\n"+conc.generateReportParkingLotyears(2011));
+                break;
+                case 5:
+                System.out.println("========================================================\nALL 2014 VEHICLES\n"+conc.generateReportParkingLotyears(2010));
+                break;
+            }
+
+            break;
+            case 2:      
+             System.out.println("========================================================\nNEWEST CAR(s)\n"+conc.generateReportParkingNewest()+"\n========================================================\nOLDEST CAR(S)\n"+conc.generateReportParkingOldest());   
+            break;
+            case 3:
+            System.out.println("========================================================\n"+conc.generateReportParkingOccupancy());
+            break;
+            case 4:
+            System.out.println("Enter the number of the parking lot number to look for its vehicle information");
+            int number=sc.nextInt();
+            sc.nextLine();
+            while (number<1 || number>51){
+                System.out.println("Enter a valid answer");
+                System.out.println("Enter the number of the parking lot number to look for its vehicle information (The available parking spaces are between 1 and 50)");
+                number=sc.nextInt();
+                sc.nextLine();
+            }
+            System.out.println(conc.lookForVehicleInParkingLot(number));
+            break;
+
+
+        }
+        
     }
 }
