@@ -254,8 +254,8 @@ public class Concessionaire{
     return figures[out];
 }   
     /**
-     * 
-     * @return
+     * The method that create the arrangement of used and old vehicles
+     * @return A list of all used and old dealership vehicles
      */
     public ArrayList<Vehicle> allUsedVehicles(){
         if(!allUsedVehicles.isEmpty()){
@@ -269,8 +269,8 @@ public class Concessionaire{
         return this.allUsedVehicles;
     }
     /**
-     * 
-     * @return
+     * A method that organizes the vehicles in the parking matrix in their respective column depending on the year and if it is used
+     * @return a vehicle matrix which organizes the vehicles depending on whether it is used and what year it is
      */
     public Vehicle[][] saveVehicles(){
         if(!parkingLotVehicles.isEmpty()){
@@ -343,30 +343,30 @@ public class Concessionaire{
         return this.parkingLot;
     }
     /**
-     * 
-     * @param id
-     * @param basePrice
-     * @param brand
-     * @param model
-     * @param year
-     * @param cylinderCapacity
-     * @param mileage
-     * @param isNew
-     * @param licensePlate
-     * @param coverPrice
-     * @param soatYear
-     * @param soatPrice
-     * @param gasLevels
-     * @param certificateYear
-     * @param certificatePrice
-     * @param propetyCardYear
-     * @param propetyCardPrice
-     * @param typeOfCar
-     * @param numDoors
-     * @param isPolarized
-     * @param tankCapacity
-     * @param typeOfGas
-     * @return
+     * Method that registers gasoline-type cars and adds them to the dealer's list of vehicles
+     * @param id initialized with the vehicle identification code a String
+     * @param basePrice Needs to have the base price of the vehicle a double
+     * @param brand String with the name of the manufacturer or make of the vehicle
+     * @param model A string with the vehicle model name
+     * @param year an integer with the year of the vehicle
+     * @param cylinderCapacity a double with the cylinder capacity of the vehicle
+     * @param mileage a double with the mileage of the vehicle
+     * @param isNew an integer where 0 is used and 1 is new
+     * @param licensePlate A chain with the vehicle plate in case it is used
+     * @param coverPrice a double with the hedge price of the SOAT in case it is used
+     * @param soatYear an integer with the year of the SOAT in case it is used
+     * @param soatPrice a double with the price of SOAT in case it is used
+     * @param gasLevels a double with the gas levels of the vehicle in case it is used
+     * @param certificateYear an integer with the year of the vehicle's mechanical technician certificate if it is used
+     * @param certificatePrice a double with the price of the certificate of the mechanical technician of the vehicle in case it is used
+     * @param propetyCardYear an integer with the year of the vehicle ownership card in case it is used
+     * @param propetyCardPrice double the price of the vehicle ownership card in case it is used
+     * @param typeOfCar An integer of the type of car that is where 1 is a sedan and 2 is a van
+     * @param numDoors an integer with the number of vehicle doors
+     * @param isPolarized A boolean being true if the vehicle is polarized, and false if it is not polarized.
+     * @param tankCapacity a double with the vehicle's tank capacity
+     * @param typeOfGas an integer being 1 extra type gasoline, 2 being regular gasoline and 3 diesel gasoline of the vehicle
+     * @return A boolean being true that the vehicle was registered and false that no vehicle was registered
      */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,int typeOfCar,int numDoors, boolean isPolarized,double tankCapacity,int typeOfGas){
        //Gasoline
@@ -397,32 +397,32 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @param id
-     * @param basePrice
-     * @param brand
-     * @param model
-     * @param year
-     * @param cylinderCapacity
-     * @param mileage
-     * @param isNew
-     * @param licensePlate
-     * @param coverPrice
-     * @param soatYear
-     * @param soatPrice
-     * @param gasLevels
-     * @param certificateYear
-     * @param certificatePrice
-     * @param propetyCardYear
-     * @param propetyCardPrice
-     * @param typeOfCar
-     * @param numDoors
-     * @param isPolarized
-     * @param tankCapacity
-     * @param bateryLife
-     * @param typeOfGas
-     * @param typeOfCharger
-     * @return
+     * Method that registers hybrid-type cars and adds them to the dealer's list of vehicles
+     * @param id initialized with the vehicle identification code a String
+     * @param basePrice Needs to have the base price of the vehicle a double
+     * @param brand String with the name of the manufacturer or make of the vehicle
+     * @param model A string with the vehicle model name
+     * @param year an integer with the year of the vehicle
+     * @param cylinderCapacity a double with the cylinder capacity of the vehicle
+     * @param mileage a double with the mileage of the vehicle
+     * @param isNew an integer where 0 is used and 1 is new
+     * @param licensePlate A chain with the vehicle plate in case it is used
+     * @param coverPrice a double with the hedge price of the SOAT in case it is used
+     * @param soatYear an integer with the year of the SOAT in case it is used
+     * @param soatPrice a double with the price of SOAT in case it is used
+     * @param gasLevels a double with the gas levels of the vehicle in case it is used
+     * @param certificateYear an integer with the year of the vehicle's mechanical technician certificate if it is used
+     * @param certificatePrice a double with the price of the certificate of the mechanical technician of the vehicle in case it is used
+     * @param propetyCardYear an integer with the year of the vehicle ownership card in case it is used
+     * @param propetyCardPrice double the price of the vehicle ownership card in case it is used
+     * @param typeOfCar An integer of the type of car that is where 1 is a sedan and 2 is a van
+     * @param numDoors an integer with the number of vehicle doors
+     * @param isPolarized A boolean being true if the vehicle is polarized, and false if it is not polarized.
+     * @param tankCapacity a double with the vehicle's tank capacity
+     * @param bateryLife a double with the battery life of the vehicle
+     * @param typeOfGas an integer being 1 extra type gasoline, 2 being regular gasoline and 3 diesel gasoline of the vehicle
+     * @param typeOfCharger an integer with 1 being a fast type battery charger and 2 being a normal type
+     * @return A boolean being true that the vehicle was registered and false that no vehicle was registered
      */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,int typeOfCar,int numDoors, boolean isPolarized,double tankCapacity,double bateryLife,int typeOfGas, int typeOfCharger){
         //Hybrid
@@ -461,30 +461,30 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @param id
-     * @param basePrice
-     * @param brand
-     * @param model
-     * @param year
-     * @param cylinderCapacity
-     * @param mileage
-     * @param isNew
-     * @param licensePlate
-     * @param coverPrice
-     * @param soatYear
-     * @param soatPrice
-     * @param gasLevels
-     * @param certificateYear
-     * @param certificatePrice
-     * @param propetyCardYear
-     * @param propetyCardPrice
-     * @param typeOfCar
-     * @param numDoors
-     * @param isPolarized
-     * @param typeOfCharger
-     * @param bateryLife
-     * @return
+     * Method that registers electric-type cars and adds them to the dealer's list of vehicles
+     * @param id initialized with the vehicle identification code a String
+     * @param basePrice Needs to have the base price of the vehicle a double
+     * @param brand String with the name of the manufacturer or make of the vehicle
+     * @param model A string with the vehicle model name
+     * @param year an integer with the year of the vehicle
+     * @param cylinderCapacity a double with the cylinder capacity of the vehicle
+     * @param mileage a double with the mileage of the vehicle
+     * @param isNew an integer where 0 is used and 1 is new
+     * @param licensePlate A chain with the vehicle plate in case it is used
+     * @param coverPrice a double with the hedge price of the SOAT in case it is used
+     * @param soatYear an integer with the year of the SOAT in case it is used
+     * @param soatPrice a double with the price of SOAT in case it is used
+     * @param gasLevels a double with the gas levels of the vehicle in case it is used
+     * @param certificateYear an integer with the year of the vehicle's mechanical technician certificate if it is used
+     * @param certificatePrice a double with the price of the certificate of the mechanical technician of the vehicle in case it is used
+     * @param propetyCardYear an integer with the year of the vehicle ownership card in case it is used
+     * @param propetyCardPrice double the price of the vehicle ownership card in case it is used
+     * @param typeOfCar An integer of the type of car that is where 1 is a sedan and 2 is a van
+     * @param numDoors an integer with the number of vehicle doors
+     * @param isPolarized A boolean being true if the vehicle is polarized, and false if it is not polarized.
+     * @param typeOfCharger an integer with 1 being a fast type battery charger and 2 being a normal type
+     * @param bateryLife a double with the battery life of the vehicle
+     * @return A boolean being true that the vehicle was registered and false that no vehicle was registered
      */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,int typeOfCar,int numDoors, boolean isPolarized, int typeOfCharger,double bateryLife){
        //Electric
@@ -517,27 +517,27 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @param id
-     * @param basePrice
-     * @param brand
-     * @param model
-     * @param year
-     * @param cylinderCapacity
-     * @param mileage
-     * @param isNew
-     * @param licensePlate
-     * @param coverPrice
-     * @param soatYear
-     * @param soatPrice
-     * @param gasLevels
-     * @param certificateYear
-     * @param certificatePrice
-     * @param propetyCardYear
-     * @param propetyCardPrice
-     * @param gasCapacity
-     * @param typeOfMotorCycle
-     * @return
+     * Method that registers motorcycles and adds them to the dealer's list of vehicles
+     * @param id initialized with the vehicle identification code a String
+     * @param basePrice Needs to have the base price of the vehicle a double
+     * @param brand String with the name of the manufacturer or make of the vehicle
+     * @param model A string with the vehicle model name
+     * @param year an integer with the year of the vehicle
+     * @param cylinderCapacity a double with the cylinder capacity of the vehicle
+     * @param mileage a double with the mileage of the vehicle
+     * @param isNew an integer where 0 is used and 1 is new
+     * @param licensePlate A chain with the vehicle plate in case it is used
+     * @param coverPrice a double with the hedge price of the SOAT in case it is used
+     * @param soatYear an integer with the year of the SOAT in case it is used
+     * @param soatPrice a double with the price of SOAT in case it is used
+     * @param gasLevels a double with the gas levels of the vehicle in case it is used
+     * @param certificateYear an integer with the year of the vehicle's mechanical technician certificate if it is used
+     * @param certificatePrice a double with the price of the certificate of the mechanical technician of the vehicle in case it is used
+     * @param propetyCardYear an integer with the year of the vehicle ownership card in case it is used
+     * @param propetyCardPrice double the price of the vehicle ownership card in case it is used
+     * @param gasCapacity a double with the vehicle's tank capacity
+     * @param typeOfMotorCycle an integer being 1 standard type motorcycle, 2 being sport, 3 being scooter and 4 being cross
+     * @return A boolean being true that the vehicle was registered and false that no vehicle was registered
      */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,double gasCapacity, int typeOfMotorCycle){
         //MotorCycle
@@ -562,9 +562,9 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @param id
-     * @return
+     * A method that searches the array of vehicles for a vehicle given an id
+     * @param id initialized with the vehicle identification code a String
+     * @return an integer with the index of the vehicle in the dealer's vehicle array in case it was found or -1 meaning it was not found
      */
     public int getVehicule(String id){
         int indexFinder = -1;
@@ -576,9 +576,9 @@ public class Concessionaire{
     return indexFinder;
     }
     /**
-     * 
-     * @param id
-     * @return
+     * Method searches for the documents of a vehicle given an id
+     * @param id initialized with the vehicle identification code a String
+     * @return A chain with the information of the documents in case the vehicle is used or if it is new inform him that the vehicle does not have documents
      */
     public String lookUpVehiculesDocuments(String id){
         String out="";
@@ -598,9 +598,9 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @param id
-     * @return
+     * Method that generates the sale price of a vehicle given a certain id
+     * @param id initialized with the vehicle identification code a String
+     * @return A string with the vehicle sale price information in case it is found or a message that the vehicle could not be found
      */
     public String lookUpVehiculesSalePrice(String id){
         String out="";
@@ -613,7 +613,7 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
+     * Method that generates the report of all vehicles in the dealership
      * @return
      */
     public String generateReportVehicles(){
@@ -630,8 +630,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all electric cars in the dealership
+     * @return A string with the report of all electric cars in the dealership
      */
     public String generateReportElectricCars(){
         String out="";
@@ -650,8 +650,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all gasoline cars in the dealership
+     * @return A string with the report of all gasoline cars in the dealership
      */
     public String generateReportGasCar(){
         String out="";
@@ -670,8 +670,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all hybrid cars in the dealership
+     * @return A string with the report of all hybrid cars in the dealership
      */
     public String generateReportHybridCar(){
         String out="";
@@ -690,8 +690,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all motorcycles in the dealership
+     * @return A string with the report of all motorcycles in the dealership
      */
     public String generateReportMotorCycle(){
         String out="";
@@ -710,8 +710,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all vehicles with extra type gasoline
+     * @return A string with the report of all vehicles with extra type gasoline
      */
     public String generateReportExtraGas(){
         String out="";
@@ -736,8 +736,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all vehicles with regular type gasoline
+     * @return A string with the report of all vehicles with regular type gasoline
      */
     public String generateReportCurrentGas(){
         String out="";
@@ -762,8 +762,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all vehicles with diesel type gasoline
+     * @return A string with the report of all vehicles with diesel type gasoline
      */
     public String generateReportDieselGas(){
         String out="";
@@ -788,8 +788,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all new vehicles in the dealership
+     * @return A string with the report of all new vehicles in the dealership
      */
     public String generateReportNew(){
         String out="";
@@ -808,8 +808,8 @@ public class Concessionaire{
         return out;
     }
     /**
-     * 
-     * @return
+     * Method that generates the report of all old vehicles in the dealership
+     * @return A string with the report of all old vehicles in the dealership
      */
     public String generateReportUSed(){
         String out="";

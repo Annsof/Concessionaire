@@ -5,6 +5,26 @@ public class ElectricCar extends Car implements BatteryConsumption{
     private double bateryLife;
     private ChargerType typeOfCharger;
 
+     /**
+    * Constructor method of the electric car object
+     * @param id initialized with the vehicle identification code a String
+     * @param basePrice Needs to have the base price of the vehicle a double
+     * @param brand String with the name of the manufacturer or make of the vehicle
+     * @param model A string with the vehicle model name
+     * @param year an integer with the year of the vehicle
+     * @param cylinderCapacity a double with the cylinder capacity of the vehicle
+     * @param mileage a double with the mileage of the vehicle
+     * @param isNew an integer where 0 is used and 1 is new
+     * @param licensePlate A chain with the vehicle plate in case it is used
+     * @param soat a soat type object with the information of the soat document of the vehicle in case it is used
+     * @param certificate a mechanical technical type object with the information of the mechanical technical document of the vehicle in case it is used
+     * @param propertyCard a property card type object with the information of the vehicle property card document in case it is used
+     * @param typeOfCar An integer of the type of car that is where 1 is a sedan and 2 is a van
+     * @param numDoors an integer with the number of vehicle doors
+     * @param isPolarized A boolean being true if the vehicle is polarized, and false if it is not polarized.
+     * @param typeOfCharger an integer with 1 being a fast type battery charger and 2 being a normal type
+     * @param bateryLife a double with the battery life of the vehicle
+    */
     public ElectricCar(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,SOAT soat,TechnicalMechanical certificate,PropertyCard propertyCard,CarType typeOfCar,int numDoors, boolean isPolarized,double bateryLife, ChargerType typeOfCharger) {
         super(id,basePrice, brand, model, year, cylinderCapacity, mileage, isNew, licensePlate, soat, certificate, propertyCard, typeOfCar, numDoors, isPolarized);
         this.bateryLife = bateryLife;

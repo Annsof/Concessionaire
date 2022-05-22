@@ -6,7 +6,10 @@ public class TestCases {
 
     private ArrayList<Vehicle> vehicles;
     public TestCases(){}
-
+    /**
+     * Method that populates a list of vehicles as a test case
+     * @return An arraylist with the test objects
+     */
     public ArrayList<Vehicle> CasesVehicles(){
         this.vehicles = new ArrayList<Vehicle>();
         this.vehicles.add(new GasCar("123",35000000, "Kia", "Rio",2009,1200,15000, 0, "DIU 530",new SOAT(150000,2022,5000000),new TechnicalMechanical(70000,2022,150),new PropertyCard(100000,2020),CarType.SEDAN,4,true,700,GasType.DIESEL));

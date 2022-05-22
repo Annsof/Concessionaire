@@ -6,7 +6,9 @@ public class Main{
 
     private Concessionaire conc;
     private Scanner sc;
-
+    /**
+     * Constructor method of main object
+     */
     public Main(){
         TestCases testcases=new TestCases();
         conc = new Concessionaire(testcases.CasesVehicles());
@@ -22,7 +24,10 @@ public class Main{
         ppl.runMenu(option);
        }while(option!=0);
     }
-    
+    /**
+     * Method that displays the menu on the screen
+     * @return an integer with the option chosen by the user
+     */
     public int showMenu(){
         System.out.println("Choose one of the following options to manage the vehicle's dealership\n"+
                                 "(1)Register vehicles for sale\n"+
@@ -36,7 +41,10 @@ public class Main{
        sc.nextLine();
        return option;
     }
-    
+    /**
+     * Method that executes the menu option chosen by the user
+     * @param option initialized with the option chosen by the user
+     */
     public void runMenu(int option){
         switch(option){
             case 1:
@@ -67,19 +75,25 @@ public class Main{
 
 
     }
-    
+    /**
+     * Method that shows on the screen the documents of a vehicle given an id
+     */
     public void documentsOfVehicle(){
         System.out.println("Enter the id of the vehicle to generate its documents");
         String id=sc.nextLine();
         System.out.println(conc.lookUpVehiculesDocuments(id)+"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
-    
+    /**
+     * Method that shows on the screen the sale price of a vehicle given an id
+     */
     public void generateAVehiclesPrice(){
         System.out.println("Enter the id of the vehicle to generate its sale price");
         String id=sc.nextLine();
         System.out.println(conc.lookUpVehiculesSalePrice(id)+"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
-    
+    /**
+     * Method that registers a new vehicle at the dealership
+     */
     public void registerVehicle(){
         double gasCapacity=0,bateryLife=0,soatPrice=0,coverPrice=0,gasLevels=0,certificatePrice=0,propetyCardPrice=0,mileage=0;
         String licensePlate="", id="";
@@ -90,7 +104,9 @@ public class Main{
 
         System.out.println("What is the id of the vehicle");
         id=sc.nextLine();
+        if(-1==conc.getVehicule(id)){
 
+        
         System.out.println("What is the base price of the vehicle");
         double basePrice=sc.nextDouble();
         sc.nextLine();
@@ -316,9 +332,13 @@ public class Main{
             }  
             break;
         }
-
+        }else{
+            System.out.println("This vehicle id has already been registered");
+        }
     }
-    
+    /**
+     * method that generates reports of vehicles in the dealer given certain conditions by the user
+     */
     public void generateReport(){
         int option2=0, option3=0;
         System.out.println("Generate report according to the following criteria\n"+
@@ -460,7 +480,9 @@ public class Main{
         }
         
     }
-    
+    /**
+     * Method that generates reports of the vehicles that are in the parking lot given certain conditions by the user
+     */
     public void GenerateParkingReports(){
         int option2=0;
         System.out.println("Generate report according to the following criteria\n"+
