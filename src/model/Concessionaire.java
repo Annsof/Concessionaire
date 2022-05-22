@@ -7,18 +7,31 @@ public class Concessionaire{
     private ArrayList<Vehicle> vehicles;
     private ArrayList<Vehicle> parkingLotVehicles;
     private ArrayList<Vehicle> allUsedVehicles;
-
+    private Vehicle[][] parkingLot;
+    /**
+     * This method is the constructor of the dealer controller object.
+     */
     public Concessionaire(){
         this.vehicles = new ArrayList<Vehicle>();
         this.parkingLotVehicles = new ArrayList<Vehicle>();
         this.allUsedVehicles = new ArrayList<Vehicle>();
+        this.parkingLot=new Vehicle[10][5];
     }
+    /**
+     * This method is the constructor of the dealer controller object.
+     * @param vehicles Receive a fix of vehicles as test cases
+     */
     public Concessionaire(ArrayList<Vehicle> vehicles){
         this.vehicles = vehicles;
         this.parkingLotVehicles = new ArrayList<Vehicle>();
         this.allUsedVehicles = new ArrayList<Vehicle>();
+        this.parkingLot= new Vehicle[10][5];
     
     }
+    /**
+     * Generates the report of the newest vehicles that are in the parking lot
+     * @return A string that contains the information of the vehicles of the most current year
+     */
     public String generateReportParkingNewest(){
         String out="";
         int newest=-1, index=-1;
@@ -41,11 +54,24 @@ public class Concessionaire{
     }
         return out;
     }
+    /**
+     * Generates the information of a vehicle located in a certain position of the parking lot
+     * @param number receives the position number of the vehicle from which the information is being sought
+     * @return A string of the vehicle being searched for or a string informing the user that no vehicle was found
+     */
     public String lookForVehicleInParkingLot(int number){
         String out="";
         Vehicle[][] parkingLot=saveVehicles();
-        int rowNum=(int)(number/5);
-        int columnNum=(number%5)-1;
+        int rowNum=0;
+        if (number>5){
+            rowNum=(int)(number/5);
+        }
+        int columnNum=(number%5);
+        if (columnNum!=0){
+            columnNum-=1;
+        }
+        System.out.println(columnNum);
+        System.out.println(rowNum);
         if(parkingLot[rowNum][columnNum]==null){
             out="At the moment there is no vehicle in this parking lot position";
         }else{
@@ -53,6 +79,10 @@ public class Concessionaire{
         }
         return out;
     }
+    /**
+     * Generate the parking lot occupancy report
+     * @return A string with the occupancy level of the parking lot or with a message warning that there are no vehicles in the parking lot
+     */
     public String generateReportParkingOccupancy(){
         String out="";
         saveVehicles();
@@ -63,6 +93,10 @@ public class Concessionaire{
         }
         return out;
     }
+    /**
+     * Generates the report of the oldest vehicles that are in the parking lot
+     * @return A string that contains the information of the oldest vehicles
+     */
     public String generateReportParkingOldest(){
         String out="";
         int oldest=1000000000, index=-1;
@@ -85,6 +119,11 @@ public class Concessionaire{
     }
         return out;
     }
+    /**
+     * Generates a report with the information of each vehicle found in a given year by the user
+     * @param year The year for which information is being sought
+     * @return A string with the information of the vehicles of a given year, or that there are no vehicles in the parking lot or of the year being searched
+     */
     public String generateReportParkingLotyears(int year){
         String out="";
         Vehicle[][] parkingLot=saveVehicles();
@@ -108,147 +147,120 @@ public class Concessionaire{
                 }
                 }
             }
+            if(out.equals("")){
+                out="There are no available cars of the year "+year+" in the parking lot at the moment\n";
+            }
             }
         return out;
     }
+    /**
+     * It shows on the screen the occupation of the parking lot
+     * @return It shows on the screen the occupation of the parking lot with the number of the parking lot and the type of vehicle that is in it.
+     */
     public String showParkingLot(){
         String out="";
-        Vehicle[][] parkingLot=saveVehicles();
-        ArrayList<Vehicle> allUsedVehicles=allUsedVehicles();
-        String[] figures = {"                  ","     ______       ","    /|_||_\\`.__   ","   (   _ __ _ _\\  ","  __`-(o)__(o)__  ","       /___       ","   __(o)==(o)`_   "};
-		if(parkingLotVehicles.size()==allUsedVehicles.size()){
+        saveVehicles();
+        allUsedVehicles();
+        if(parkingLotVehicles.size()==allUsedVehicles.size()){
             out+="All vehicles have been added to the parking lot\n";
         }else{
             out+="All vehicles have not been added to the parking lot\n";
-        }
-        for (int rowNum=0; rowNum<parkingLot.length; rowNum++){
-		    for (int columnNum=0; columnNum<parkingLot[0].length; columnNum++){
-                out+=" __________________";  
-		    }
-		    out+="\n" ;
-		    int counter =0;
-		    int counter1 =0;
-		    int counter2 =0;
-		    int counter3 =0;
-		    int counter4 =0;
-		    
-		    int option =0;
-		    int option1 =0;
-		    int option2 =0;
-		    int option3 =0;
-		    
-		    for (int columnNum=0; columnNum<parkingLot[0].length; columnNum++){
-            	    for (int columnNum1=0; columnNum1<parkingLot[0].length; columnNum1++){
-            	    if(parkingLot[rowNum][columnNum1]==null){
-            	        option =0;
-            	        option1 =0;
-            		    option2 =0;
-            		    option3 =0;
-            	    }else if(parkingLot[rowNum][columnNum1] instanceof Car){
-            	        option =1;
-            	        option1 =2;
-            		    option2 =3;
-            		    option3 =4;
-            	    }else if(parkingLot[rowNum][columnNum1] instanceof MotorCycle){
-            	        option =0;
-            	        option1 =0;
-            		    option2 =5;
-            		    option3 =6;
-            	    }
-            	    int numParking=rowNum*5+columnNum1+1;
-	                String numofParkingLot="";
-	                if(numParking<10){
-	                    numofParkingLot="0"+numParking;
-	                }else{
-	                    numofParkingLot=""+numParking;
-	                }
-                	    if(columnNum1==parkingLot[0].length-1 && counter1==0){
-                	        out+="|_"+numofParkingLot+"_|             |\n" ;
-                	        counter1++;
-                	    }else if(columnNum1==parkingLot[0].length-1 && counter1==1){
-                	        out+="|"+figures[option]+"|\n" ;
-                	        counter1++;
-                	    }else if(columnNum1==parkingLot[0].length-1 && counter1==2){
-                	        out+="|"+figures[option1]+"|\n" ;
-                	        counter1++;
-                	    }else if(columnNum1==parkingLot[0].length-1 && counter1==3){
-                	        out+="|"+figures[option2]+"|\n" ;
-                	        counter1++;
-                	    }else if(columnNum1==parkingLot[0].length-1 && counter1==4){
-                	        out+="|"+figures[option3]+"|\n" ;
-                	        counter1++;
-                	    }else if(columnNum1==parkingLot[0].length-2 && counter2==0){
-                	        out+="|_"+numofParkingLot+"_|             " ;
-                	        counter2++;
-                	    }else if(columnNum1==parkingLot[0].length-2 && counter2==1){
-                	        out+="|"+figures[option] ;
-                	        counter2++;
-                	    }else if(columnNum1==parkingLot[0].length-2 && counter2==2){
-                	        out+="|"+figures[option1] ;
-                	        counter2++;
-                	    }else if(columnNum1==parkingLot[0].length-2 && counter2==3){
-                	        out+="|"+figures[option2] ;
-                	        counter2++;
-                	    }else if(columnNum1==parkingLot[0].length-2 && counter2==4){
-                	        out+="|"+figures[option3] ;
-                	        counter2++;
-                	    }else if(columnNum1==parkingLot[0].length-3 && counter3==0){
-                	        out+="|_"+numofParkingLot+"_|             " ;
-                	        counter3++;
-                	    }else if(columnNum1==parkingLot[0].length-3 && counter3==1){
-                	        out+="|"+figures[option] ;
-                	        counter3++;
-                	    }else if(columnNum1==parkingLot[0].length-3 && counter3==2){
-                	        out+="|"+figures[option1] ;
-                	        counter3++;
-                	    }else if(columnNum1==parkingLot[0].length-3 && counter3==3){
-                	        out+="|"+figures[option2] ;
-                	        counter3++;
-                	    }else if(columnNum1==parkingLot[0].length-3 && counter3==4){
-                	        out+="|"+figures[option3] ;
-                	        counter3++;
-                	    } else if(columnNum1==parkingLot[0].length-4 && counter4==0){
-                	        out+="|_"+numofParkingLot+"_|             " ;
-                	        counter4++;
-                	    }else if(columnNum1==parkingLot[0].length-4 && counter4==1){
-                	        out+="|"+figures[option] ;
-                	        counter4++;
-                	    }else if(columnNum1==parkingLot[0].length-4 && counter4==2){
-                	        out+="|"+figures[option1] ;
-                	        counter4++;
-                	    }else if(columnNum1==parkingLot[0].length-4 && counter4==3){
-                	        out+="|"+figures[option2] ;
-                	        counter4++;
-                	    }else if(columnNum1==parkingLot[0].length-4 && counter4==4){
-                	        out+="|"+figures[option3] ;
-                	        counter4++;
-                	    }else if(columnNum1==parkingLot[0].length-5 && counter==0){
-                	        out+="|_"+numofParkingLot+"_|             " ;
-                	        counter++;
-                	    }else if(columnNum1==parkingLot[0].length-5 && counter==1){
-                	        out+="|"+figures[option] ;
-                	        counter++;
-                	    }else if(columnNum1==parkingLot[0].length-5 && counter==2){
-                	        out+="|"+figures[option1] ;
-                	        counter++;
-                	    }else if(columnNum1==parkingLot[0].length-5 && counter==3){
-                	        out+="|"+figures[option2] ;
-                	        counter++;
-                	    }else if(columnNum1==parkingLot[0].length-5 && counter==4){
-                	        out+="|"+figures[option3] ;
-                	        counter++;
-                	    }
-            	    }
-		    }
-		 if (rowNum==parkingLot.length-1){
-		     for (int columnNum=0; columnNum<parkingLot[0].length; columnNum++){
-            	        out+=" __________________";
-            	    }
-		 }
-	    }
+        } 
+        out+="HC - Hybrid Car | GC - Gas Car | EC - Electric Car | MC - MotorCycle \n __________________ __________________ __________________ __________________ __________________\n|                  |                  |                  |                  |                  |\n|       2014       |       2013       |       2012       |       2011       |   2010 & below   |\n|__________________|__________________|__________________|__________________|__________________|\n";
+		for (int rowNum=0; rowNum< parkingLot.length; rowNum++ ) { 
+		    for (int rowOfRowNum=0; rowOfRowNum<6; rowOfRowNum++ ) { 
+			    for (int columnNum = 0; columnNum < parkingLot[0].length; columnNum++) { 
+            	if (columnNum!=parkingLot[0].length-1){
+                    out+=parkingLotOptions(rowNum,columnNum,rowOfRowNum);
+            	} else if (columnNum==parkingLot[0].length-1){
+            	    out+=parkingLotOptions(rowNum,columnNum,rowOfRowNum)+"|\n";  
+            	}
+            	
+            	
+			}
+		}
+		
+    }
         return out;
     }
+    /**
+     * Builds the shape of the parking lot on the screen depending on the iteration in the row and the car in the matrix at a certain point
+     * @param rowNum initialized with the row in which the path is found
+     * @param columnNum initialized with the column in which the path is found
+     * @param rowOfRowNum initialized with row iteration
+     * @return Depending on the iteration of the row and the vehicle in the vehicle array, it returns its corresponding figure
+     */
+    public String parkingLotOptions(int rowNum, int columnNum, int rowOfRowNum){
+        int numParking=rowNum*5+columnNum+1;
+                    String numofParkingLot="";
+                    if(numParking<10){
+                        numofParkingLot="0"+numParking;
+                    }else{
+                        numofParkingLot=""+numParking;
+                    }
+        String type="";
+        int option1 =0;
+        int option2 =0;
+        int option3 =0;
+        int option4 =0;
+        int option5 =0;
+        int out=0;
+    
+            if(parkingLot[rowNum][columnNum]==null){
+                    option1 =0;
+                    option2 =0;
+                    option3 =0;
+                    option4 =0;
+                    option5 =8;
+                }else if(parkingLot[rowNum][columnNum] instanceof Car){
+                    option1 =1;
+                    option2 =2;
+                    option3 =3;
+                    option4 =4;
+                    option5 =9;
+                    if(parkingLot[rowNum][columnNum] instanceof HybridCar ){
+                    type="HC";
+                    }
+                    if(parkingLot[rowNum][columnNum] instanceof GasCar ){
+                        type="GC";
+                    }
+                    if(parkingLot[rowNum][columnNum] instanceof ElectricCar ){
+                        type="EC";
+                    }
+                }else if(parkingLot[rowNum][columnNum] instanceof MotorCycle){
+                    option1 =0;
+                    option2 =0;
+                    option3 =5;
+                    option4 =6;
+                    option5 =9;
+                    type="MC";
+                }
+            String[] figures = {"|                  ","|     ______       ","|    /|_||_\\`.__   ","|   (   _ __ _ _\\  ","|  __`-(o)__(o)__  ","|       /___       ","|   __(o)==(o)`_   "," __________________","|_"+numofParkingLot+"_|        |____","|_"+numofParkingLot+"_|        |_"+type+"_"};
+    
+        if(rowOfRowNum==5){
+        out=7;
+        }else if(rowOfRowNum==0){
+        out=option5;  
+        }else if(rowOfRowNum==1){
+        out=option1;
+        }else if(rowOfRowNum==2){
+        out=option2;
+        }else if(rowOfRowNum==3){
+        out=option3; 
+        }else if(rowOfRowNum==4){
+        out=option4;
+        }
+    
+    return figures[out];
+}   
+    /**
+     * 
+     * @return
+     */
     public ArrayList<Vehicle> allUsedVehicles(){
+        if(!allUsedVehicles.isEmpty()){
+            allUsedVehicles.clear();
+        }
         for (int i=0;i<vehicles.size();i++){
             if(!vehicles.get(i).toString().equals("") && vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()<2015){
                 this.allUsedVehicles.add(vehicles.get(i));
@@ -256,11 +268,19 @@ public class Concessionaire{
         }
         return this.allUsedVehicles;
     }
+    /**
+     * 
+     * @return
+     */
     public Vehicle[][] saveVehicles(){
-        Vehicle[][] parkingLot= new Vehicle[10][5];
         if(!parkingLotVehicles.isEmpty()){
-            parkingLotVehicles=new ArrayList<Vehicle>();
+            parkingLotVehicles.clear();
         }
+        for (int rowNum=0; rowNum<parkingLot.length; rowNum ++) {
+            for (int columnNum=0; columnNum<parkingLot[0].length; columnNum++) {
+                parkingLot[rowNum][columnNum]=null;
+            }
+        } 
         if(vehicles.isEmpty()){
             parkingLot= new Vehicle[10][5];
          }else{
@@ -268,7 +288,7 @@ public class Concessionaire{
                 for (int rowNum=0;rowNum<parkingLot.length;rowNum++){
                     if(columnNum==0){
                         for(int i=0;i<vehicles.size();i++){
-                        if(!vehicles.get(i).toString().equals("") && vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2014 && !parkingLotVehicles.contains(vehicles.get(i))){
+                        if(vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2014 && !parkingLotVehicles.contains(vehicles.get(i)) ){
                             if(parkingLot[rowNum][columnNum]==null){
                             this.parkingLotVehicles.add(vehicles.get(i));
                             parkingLot[rowNum][columnNum]=vehicles.get(i);
@@ -278,7 +298,7 @@ public class Concessionaire{
                     } 
                     if(columnNum==1){
                         for(int i=0;i<vehicles.size();i++){
-                        if(!vehicles.get(i).toString().equals("") && vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2013 && !parkingLotVehicles.contains(vehicles.get(i))){
+                        if( vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2013 && !parkingLotVehicles.contains(vehicles.get(i))){
                             if(parkingLot[rowNum][columnNum]==null){
                                 this.parkingLotVehicles.add(vehicles.get(i));
                                 parkingLot[rowNum][columnNum]=vehicles.get(i);
@@ -288,7 +308,7 @@ public class Concessionaire{
                     } 
                     if(columnNum==2){
                         for(int i=0;i<vehicles.size();i++){
-                        if(!vehicles.get(i).toString().equals("") && vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2012 && !parkingLotVehicles.contains(vehicles.get(i))){
+                        if(vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2012 && !parkingLotVehicles.contains(vehicles.get(i))){
                             if(parkingLot[rowNum][columnNum]==null){
                                 this.parkingLotVehicles.add(vehicles.get(i));
                                 parkingLot[rowNum][columnNum]=vehicles.get(i);
@@ -298,7 +318,7 @@ public class Concessionaire{
                     } 
                     if(columnNum==3){
                         for(int i=0;i<vehicles.size();i++){
-                        if(!vehicles.get(i).toString().equals("") && vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2011 && !parkingLotVehicles.contains(vehicles.get(i))){
+                        if(vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()==2011 && !parkingLotVehicles.contains(vehicles.get(i))){
                             if(parkingLot[rowNum][columnNum]==null){
                                 this.parkingLotVehicles.add(vehicles.get(i));
                                 parkingLot[rowNum][columnNum]=vehicles.get(i);
@@ -308,7 +328,7 @@ public class Concessionaire{
                     } 
                     if(columnNum==4){
                         for(int i=0;i<vehicles.size();i++){
-                        if(!vehicles.get(i).toString().equals("") && vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()<2011 && !parkingLotVehicles.contains(vehicles.get(i))){
+                        if(vehicles.get(i).getIsNew()==0 && vehicles.get(i).getYear()<2011 && !parkingLotVehicles.contains(vehicles.get(i))){
                             if(parkingLot[rowNum][columnNum]==null){
                                 this.parkingLotVehicles.add(vehicles.get(i));
                                 parkingLot[rowNum][columnNum]=vehicles.get(i);
@@ -320,20 +340,34 @@ public class Concessionaire{
                 }
             }
 		}
-        /**
-        for (int rowNum=0; rowNum<parkingLot.length; rowNum ++) {
-            for (int columnNum=0; columnNum<parkingLot[0].length; columnNum++) {
-                if(parkingLot[rowNum][columnNum]==null){
-                    out+=0);
-                } else{
-                    out+=1);
-                }
-            }
-            System.out.println();
-        }
-        */
-        return parkingLot;
+        return this.parkingLot;
     }
+    /**
+     * 
+     * @param id
+     * @param basePrice
+     * @param brand
+     * @param model
+     * @param year
+     * @param cylinderCapacity
+     * @param mileage
+     * @param isNew
+     * @param licensePlate
+     * @param coverPrice
+     * @param soatYear
+     * @param soatPrice
+     * @param gasLevels
+     * @param certificateYear
+     * @param certificatePrice
+     * @param propetyCardYear
+     * @param propetyCardPrice
+     * @param typeOfCar
+     * @param numDoors
+     * @param isPolarized
+     * @param tankCapacity
+     * @param typeOfGas
+     * @return
+     */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,int typeOfCar,int numDoors, boolean isPolarized,double tankCapacity,int typeOfGas){
        //Gasoline
         boolean out=false;
@@ -362,6 +396,34 @@ public class Concessionaire{
         out=true;
         return out;
     }
+    /**
+     * 
+     * @param id
+     * @param basePrice
+     * @param brand
+     * @param model
+     * @param year
+     * @param cylinderCapacity
+     * @param mileage
+     * @param isNew
+     * @param licensePlate
+     * @param coverPrice
+     * @param soatYear
+     * @param soatPrice
+     * @param gasLevels
+     * @param certificateYear
+     * @param certificatePrice
+     * @param propetyCardYear
+     * @param propetyCardPrice
+     * @param typeOfCar
+     * @param numDoors
+     * @param isPolarized
+     * @param tankCapacity
+     * @param bateryLife
+     * @param typeOfGas
+     * @param typeOfCharger
+     * @return
+     */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,int typeOfCar,int numDoors, boolean isPolarized,double tankCapacity,double bateryLife,int typeOfGas, int typeOfCharger){
         //Hybrid
         boolean out=false;
@@ -398,6 +460,32 @@ public class Concessionaire{
         this.vehicles.add(new HybridCar(id,basePrice,brand,model,year,cylinderCapacity,mileage,isNew,licensePlate, new SOAT(soatPrice,soatYear,coverPrice), new TechnicalMechanical(certificatePrice,certificateYear,gasLevels), new PropertyCard(propetyCardPrice,propetyCardYear), carType, numDoors,  isPolarized, bateryLife,  tankCapacity,  gasType,  chargerType));
         return out;
     }
+    /**
+     * 
+     * @param id
+     * @param basePrice
+     * @param brand
+     * @param model
+     * @param year
+     * @param cylinderCapacity
+     * @param mileage
+     * @param isNew
+     * @param licensePlate
+     * @param coverPrice
+     * @param soatYear
+     * @param soatPrice
+     * @param gasLevels
+     * @param certificateYear
+     * @param certificatePrice
+     * @param propetyCardYear
+     * @param propetyCardPrice
+     * @param typeOfCar
+     * @param numDoors
+     * @param isPolarized
+     * @param typeOfCharger
+     * @param bateryLife
+     * @return
+     */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,int typeOfCar,int numDoors, boolean isPolarized, int typeOfCharger,double bateryLife){
        //Electric
         boolean out=false;
@@ -428,6 +516,29 @@ public class Concessionaire{
         out=true;
         return out;
     }
+    /**
+     * 
+     * @param id
+     * @param basePrice
+     * @param brand
+     * @param model
+     * @param year
+     * @param cylinderCapacity
+     * @param mileage
+     * @param isNew
+     * @param licensePlate
+     * @param coverPrice
+     * @param soatYear
+     * @param soatPrice
+     * @param gasLevels
+     * @param certificateYear
+     * @param certificatePrice
+     * @param propetyCardYear
+     * @param propetyCardPrice
+     * @param gasCapacity
+     * @param typeOfMotorCycle
+     * @return
+     */
     public boolean registerVehicle(String id,double basePrice, String brand, String model,int year, double cylinderCapacity, double mileage, int isNew, String licensePlate,double coverPrice,int soatYear,double soatPrice, double gasLevels, int certificateYear, double certificatePrice, int propetyCardYear, double propetyCardPrice,double gasCapacity, int typeOfMotorCycle){
         //MotorCycle
         boolean out=false;
@@ -450,6 +561,11 @@ public class Concessionaire{
         out=true;
         return out;
     }
+    /**
+     * 
+     * @param id
+     * @return
+     */
     public int getVehicule(String id){
         int indexFinder = -1;
         for(int i=0;i<vehicles.size();i++){
@@ -459,14 +575,19 @@ public class Concessionaire{
     }
     return indexFinder;
     }
+    /**
+     * 
+     * @param id
+     * @return
+     */
     public String lookUpVehiculesDocuments(String id){
         String out="";
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        Vehicle vehicle=vehicles.get(getVehicule(id));
         int index=getVehicule(id);
         if(index==-1){
             out="The vehicle that you are looking for could not be found";
         }else{
+            Vehicle vehicle=vehicles.get(getVehicule(id));
             if(vehicle.getIsNew()==0){ //used
                 out="\nINFO DOCUMENTS OF VEHICLE"+id+vehicle.getSoat().toString()+"\nWith a SOAT code of: "+vehicle.getSoat().generateCode()+vehicle.getCertificate().toString()+"\nWith a Technical Mechanical Certificate code of: "+vehicle.getCertificate().generateCode()+vehicle.getPropertyCard().toString()+"\nWith a propety card code of"+vehicle.getPropertyCard().generateCode();
             } else{
@@ -476,6 +597,11 @@ public class Concessionaire{
         
         return out;
     }
+    /**
+     * 
+     * @param id
+     * @return
+     */
     public String lookUpVehiculesSalePrice(String id){
         String out="";
         int index=getVehicule(id);
@@ -486,6 +612,10 @@ public class Concessionaire{
         }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportVehicles(){
         String out="";
         if(vehicles.isEmpty()){
@@ -499,6 +629,10 @@ public class Concessionaire{
 		}
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportElectricCars(){
         String out="";
         if(vehicles.isEmpty()){
@@ -515,6 +649,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportGasCar(){
         String out="";
         if(vehicles.isEmpty()){
@@ -531,6 +669,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportHybridCar(){
         String out="";
         if(vehicles.isEmpty()){
@@ -547,6 +689,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportMotorCycle(){
         String out="";
         if(vehicles.isEmpty()){
@@ -563,6 +709,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportExtraGas(){
         String out="";
         if(vehicles.isEmpty()){
@@ -585,6 +735,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportCurrentGas(){
         String out="";
         if(vehicles.isEmpty()){
@@ -607,6 +761,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportDieselGas(){
         String out="";
         if(vehicles.isEmpty()){
@@ -629,6 +787,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportNew(){
         String out="";
         if(vehicles.isEmpty()){
@@ -645,6 +807,10 @@ public class Concessionaire{
             }
         return out;
     }
+    /**
+     * 
+     * @return
+     */
     public String generateReportUSed(){
         String out="";
         if(vehicles.isEmpty()){
@@ -661,4 +827,5 @@ public class Concessionaire{
             }
         return out;
     }
+    
 }

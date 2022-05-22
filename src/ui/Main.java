@@ -12,6 +12,7 @@ public class Main{
         conc = new Concessionaire(testcases.CasesVehicles());
         sc = new Scanner(System.in);
     }
+    
     public static void main(String[]arg){
         System.out.println("Welcome to The Vehicle's Dealership");
         Main ppl= new Main();
@@ -21,6 +22,7 @@ public class Main{
         ppl.runMenu(option);
        }while(option!=0);
     }
+    
     public int showMenu(){
         System.out.println("Choose one of the following options to manage the vehicle's dealership\n"+
                                 "(1)Register vehicles for sale\n"+
@@ -34,6 +36,7 @@ public class Main{
        sc.nextLine();
        return option;
     }
+    
     public void runMenu(int option){
         switch(option){
             case 1:
@@ -57,20 +60,26 @@ public class Main{
             case 0:
             System.out.println("Bye!");
                 break;
+            default:
+            
+            break;
         }
 
 
     }
+    
     public void documentsOfVehicle(){
         System.out.println("Enter the id of the vehicle to generate its documents");
         String id=sc.nextLine();
         System.out.println(conc.lookUpVehiculesDocuments(id)+"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
+    
     public void generateAVehiclesPrice(){
         System.out.println("Enter the id of the vehicle to generate its sale price");
         String id=sc.nextLine();
         System.out.println(conc.lookUpVehiculesSalePrice(id)+"\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
+    
     public void registerVehicle(){
         double gasCapacity=0,bateryLife=0,soatPrice=0,coverPrice=0,gasLevels=0,certificatePrice=0,propetyCardPrice=0,mileage=0;
         String licensePlate="", id="";
@@ -309,6 +318,7 @@ public class Main{
         }
 
     }
+    
     public void generateReport(){
         int option2=0, option3=0;
         System.out.println("Generate report according to the following criteria\n"+
@@ -450,6 +460,7 @@ public class Main{
         }
         
     }
+    
     public void GenerateParkingReports(){
         int option2=0;
         System.out.println("Generate report according to the following criteria\n"+
